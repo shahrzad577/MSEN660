@@ -57,8 +57,6 @@ def get_LR_model(X_train, y_train):
 
 lr , rsquared = get_LR_model(X_train, y_train)
 
-
-print('========================================')
 print("lr model, R squared of train data:", rsquared)
 
 y_pred_lr = lr.predict(X_test)
@@ -95,13 +93,11 @@ print('Time: ', stop - start)
 Xtest_poly = poly.fit_transform(X_test)
 poly_rsquared_test = lrPoly.score(Xtest_poly, y_test)
 
-print('========================================')
+
 print("Poly model, R squared of train data:", poly_rsquared_train)
 print("Poly model, R squared of test data:", poly_rsquared_test)
 
 
-
-print('========================================')
 y_pred_poly = lrPoly.predict(Xtest_poly)
 # Getting the correlation of y_pred and y_test. +_1 means very correlated, 0 means not correlated at all
 corr, _ = spearmanr(y_pred_poly, y_test)
@@ -161,36 +157,33 @@ def get_scatterbyHue(data, title, plotname):
 
 
 ####### for all data
-# get_scatterbyHue(data_PolyPred, 'Predicted vs. simulated values \n Polynomial model, degree=4',
-#                  'all_data degree4')
-# get_scatterbyHue(data_LRPred, 'Predicted vs. simulated values \n Regression model, degree=1',
-#                  'all_data degree1')
+get_scatterbyHue(data_PolyPred, 'Predicted vs. simulated values \n Polynomial model, degree=4',
+                  'all_data degree4')
+get_scatterbyHue(data_LRPred, 'Predicted vs. simulated values \n Regression model, degree=1',
+                'all_data degree1')
 
 ###### for df_Cube
-# get_scatterbyHue(data_PolyPred, 'Predicted vs. simulated values \n Polynomial model, degree=4',
-#                'square degree4')
-# get_scatterbyHue(data_LRPred, 'Predicted vs. simulated values \n Regression model, degree=1',
-#                 'square degree1')
+get_scatterbyHue(data_PolyPred, 'Predicted vs. simulated values \n Polynomial model, degree=4',
+                'square degree4')
+get_scatterbyHue(data_LRPred, 'Predicted vs. simulated values \n Regression model, degree=1',
+                'square degree1')
 
 ##### for df_OtherShapes
 get_scatterbyHue(data_PolyPred, 'Predicted vs. simulated values \n Polynomial model, degree=4',
                  'TUL_shape degree4')
-# get_scatterbyHue(data_LRPred, 'Predicted vs. simulated values \n Regression model, degree=1',
-#                  'TUL_shape degree1')
+get_scatterbyHue(data_LRPred, 'Predicted vs. simulated values \n Regression model, degree=1',
+                 'TUL_shape degree1')
 
 
+### Plot for cubic model or U.L,T model
+def get_scatterPlotGray(y_pred, y_test, plotname):
+     plt.figure(figsize=(8,8))
+     plt.scatter(x=y_pred, y=y_test, c='white', edgecolors='black')
+     plt.xlabel('predicted values')
+     plt.ylabel('simulated values')
+     plt.title(plotname)
+     plt.grid(linestyle='dotted')
+     plt.savefig(base_path + 'Plots\\' + plotname + '.jpg')
 
-
-#
-# ### Plot for cubic model or U.L,T model
-# def get_scatterPlotGray(y_pred, y_test, plotname):
-#     plt.figure(figsize=(8,8))
-#     plt.scatter(x=y_pred, y=y_test, c='white', edgecolors='black')
-#     plt.xlabel('predicted values')
-#     plt.ylabel('simulated values')
-#     plt.title(plotname)
-#     plt.grid(linestyle='dotted')
-#     plt.savefig(base_path + 'Plots\\' + plotname + '.jpg')
-#
-# get_scatterPlotGray(y_pred_poly, y_test, 'polynomial model_all data')
-# get_scatterPlotGray(y_pred_lr, y_test, 'Regression model_all data')
+get_scatterPlotGray(y_pred_poly, y_test, 'polynomial model_all data')
+get_scatterPlotGray(y_pred_lr, y_test, 'Regression model_all data')
